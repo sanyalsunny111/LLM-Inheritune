@@ -1,0 +1,75 @@
+name: CPU tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+jobs:
+  cpu-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: "macOS-12", python-version: "3.10"}
+          - {os: "ubuntu-22.04", python-version: "3.11"}
+          - {os: "ubuntu-22.04", python-version: "3.10"}
+          - {os: "ubuntu-22.04", python-version: "3.9"}
+          - {os: "ubuntu-20.04", python-version: "3.8"}
+          - {os: "windows-2022", python-version: "3.10"}
+    timeout-minutes: 25
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+        cache-dependency-path: |
+          requirements.txt
+          requirements-all.txt
+          setup.py
+
+    - name: Install minimal dependencies
+      run: |
+        pip install -r requirements.txt
+        pip list
+        # make sure all modules are importable
+        modules=$(
+          find * -type f -name "*.py" | \
+          grep -v tests | grep "/" | grep -v lm_eval | grep -v xla | grep -v prepare_slimpajama | grep -v prepare_starcoder | \
+          sed 's/\.py$//' | sed 's/\//./g' | \
+          sed 's/.__init__//g' | xargs -I {} echo "import {};"
+        )
+        echo "$modules"
+        python -c "$modules"
+
+    - name: Install all dependencies
+      run: |
+        pip install -r requirements-all.txt pytest pytest-rerunfailures pytest-timeout transformers>=4.36.0 einops protobuf
+        pip list
+
+    - name: Run tests without the package installed
+      run: |
+        pytest -v --disable-pytest-warnings --strict-markers --color=yes --timeout 120
+
+    - name: Run tests
+      run: |
+        pip install . --no-deps
+
+        pytest -v --disable-pytest-warnings --strict-markers --color=yes --timeout 120
