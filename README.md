@@ -11,7 +11,7 @@ We study the effectiveness of a simple approach to develop a small base language
 
 We also investigate Inheritune, a slightly different setting where we train small LMs utilizing larger LMs and their full pre-training dataset. Here we show that smaller LMs trained utilizing some of the layers of GPT2-medium (355M) and GPT-2-large (770M) can effectively match the validation loss of their bigger counterparts when trained from scratch for the same number of training steps on OpenWebText dataset with 9B tokens. We analyze \method{} with extensive experiments and demonstrate it efficacy on diverse settings.
 
-## Cite
+## Cite us 
 If you find this work helpful, please consider citing us:
 
 ```
