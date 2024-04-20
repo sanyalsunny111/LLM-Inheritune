@@ -1,4 +1,6 @@
 # Pre-training Small Base LMs with Fewer Tokens
+[Paper](https://arxiv.org/abs/2404.08634).
+
 
 ⚠️ **Warning**
 
