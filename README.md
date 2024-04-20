@@ -29,7 +29,7 @@ Performance of our 1.5B base LM derived using 1B data with Inheritune on an aver
 &nbsp;
 
 <p align="center" width="50%">
-      <img src="images/main_fig2-1.png" style="width: 50%; min-width: 100px; display: block; margin: auto;">
+      <img src="images/main_fig2-1.png" style="width: 80%; min-width: 100px; display: block; margin: auto;">
 </p>
 
 
@@ -179,6 +179,8 @@ Below is the comparison of our target model with reference models and other base
 <td><b>48.61</b></td>
 </tr>
 </table>
+
+&nbsp;
 
 ## Exploratory Analysis with GPT2-large(770M) and GPT2-medium(355M)
 
