@@ -1,31 +1,17 @@
-# GPT2 experiments with Inheritune 
+# Pre-training Small Base LMs with Fewer Tokens
 
-## Introduction
-We analyze Inheritune in a slightly different setting where we assume full access to the pre-training data. 
-We observe that a much smaller target model can be extracted if we use the full pre-training data. We ran controlled experiments with GPT2-large and GPT2-medium LLMs. Utilizing Inheritune we show that for GPT2-large we can keep 50% of the layers and 45% of parameters while for a GPT2-medium, we keep 33% layers and 28% parameters without compromising the validation loss (log perplexity). Intriguingly, we also observe that these smaller models derived with \method{} exhibit lower validation loss to their same-sized counterparts are trained from scratch for 2x the number of training steps. Moreover, these smaller models derived with Inheritune exhibit a similar convergence pattern to their larger counterparts.
-## Data Preparation
-Prepare the [OpenWebText](https://huggingface.co/datasets/openwebtext) data following [nanoGPT](https://github.com/karpathy/nanoGPT/):
-```
-$ python data/openwebtext/prepare.py
-```
+⚠️ **Warning**
 
-## Training with Inheritune Script for Our GPT-2-large 18 layer variant
-
-##### 1 round of training
-To train a GPT2-large (our variant 18 layers) model with Inheritune use the following command:
-```bash
-torchrun --standalone --nproc_per_node=3 train_inheritune.py
-```
+This repository is still under development and may still contain various bugs.
+---
 
 
-## Dependencies
-- [pytorch](https://pytorch.org) 2.0
-- transformers
-- datasets
-- tiktoken
-- wandb
+## Abstract
+We study the effectiveness of a simple approach to develop a small base language model (LM) starting from an existing large base LM: first inherit a few transformer blocks from the larger LM, and then continually train this smaller model on a very small subset (0.1%) of the raw pre-training data of the larger model. We call our simple recipe Inheritune and first demonstrate it for building a small base LM with 1.5B parameters using 1B tokens (and a starting larger LM of 3B parameters); we do this using a single A6000 GPU for less than half a day. Across 9 diverse evaluation datasets as well as the MMLU benchmark, the resulting model compares favorably to publicly available similar sized base models, some of which have been trained using 50-1000 times more tokens. 
 
-## Cite
+We also investigate Inheritune, a slightly different setting where we train small LMs utilizing larger LMs and their full pre-training dataset. Here we show that smaller LMs trained utilizing some of the layers of GPT2-medium (355M) and GPT-2-large (770M) can effectively match the validation loss of their bigger counterparts when trained from scratch for the same number of training steps on OpenWebText dataset with 9B tokens. We analyze \method{} with extensive experiments and demonstrate it efficacy on diverse settings.
+
+## Cite us 
 If you find this work helpful, please consider citing us:
 
 ```
@@ -38,4 +24,5 @@ If you find this work helpful, please consider citing us:
 ```
 
 ## Acknowledgement
-The training code is mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/).
+The training code for small language model 1B-2B is mainly adapted from [litgpt](https://github.com/Lightning-AI/litgpt/blob/main/README.md). The code for GPT2 experiments are mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/).
+
