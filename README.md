@@ -1,5 +1,11 @@
 # Pre-training Small Base LMs with Fewer Tokens
-[Paper](https://arxiv.org/abs/2404.08634).
+
+<p align="center" width="100%">
+      <img src="images/Inheritune_llama.jpeg" style="width: 100%; min-width: 200px; display: block; margin: auto;">
+</p>
+
+[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622)
+
 
 
 ⚠️ **Warning**
