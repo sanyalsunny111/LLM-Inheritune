@@ -4,7 +4,7 @@
       <img src="images/Inheritune_llama.jpeg" style="width: 50%; min-width: 100px; display: block; margin: auto;">
 </p>
 
-[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622)
+[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622) | [Podcast](https://open.spotify.com/episode/4DvCmbTEH35D8UvxrdNPv6)
 
 
 
@@ -26,11 +26,11 @@ If you find this work helpful, please consider citing us:
 @inproceedings{Sanyal2024pretraining,
   title  = {Pre-training Small Base LMs with Fewer Tokens},
   author = {Sunny Sanyal and sujay sanghavi and Alex Dimakis},
-  year   = {2024},
-  url    = {https://openreview.net/forum?id=SmNlrStwHW}
+  year   = {2024}
 }
 ```
+&nbsp;
 
 ## Acknowledgement
-The training code for small language model 1B-2B is mainly adapted from [litgpt](https://github.com/Lightning-AI/litgpt/blob/main/README.md). The code for GPT2 experiments are mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/).
-
+The training code for small language model 1B-2B is mainly adapted from [litgpt](https://github.com/Lightning-AI/litgpt/blob/main/README.md). The code for GPT2 experiments are mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/). \
+The llama image is created using DALLE.
