@@ -1,6 +1,6 @@
 # Pre-training Small Base LMs with Fewer Tokens
 
-<p align="center" width="100%">
+<p align="center" width="50%">
       <img src="images/Inheritune_llama.jpeg" style="width: 100%; min-width: 200px; display: block; margin: auto;">
 </p>
 
