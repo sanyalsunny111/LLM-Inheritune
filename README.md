@@ -4,7 +4,7 @@
       <img src="images/Inheritune_llama.jpeg" style="width: 50%; min-width: 100px; display: block; margin: auto;">
 </p>
 
-[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622) | [Podcast](https://open.spotify.com/episode/4DvCmbTEH35D8UvxrdNPv6)
+[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622) | [Podcast](https://open.spotify.com/episode/4DvCmbTEH35D8UvxrdNPv6) | [Media](https://www.marktechpost.com/2024/04/21/inheritune-by-ut-austin-assists-efficient-language-model-training-leveraging-inheritance-and-reduced-data-for-comparable-performance/)
 
 
 
