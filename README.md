@@ -292,6 +292,12 @@ Below is the pre-training and downstream performance of GPT-2 Medium and Large m
 
 Note: The models marked with 'rand init' are randomly initialized. The row labeled 'Final Model →' indicates the end results after 3 rounds of our method on a GPT-2 medium model to achieve benchmark val loss.
 
+## News
+
+[2024-04-22] We've released the first version of codebase for Inheritune in low data regime and also full data regime.
+
+[2024-04-22] We've added the discussions option at the top for community feedback and discussions. Feel free to suggest new experiments and post your results.
+
 
 ## Cite us 
 If you find this work helpful, please consider citing us:
@@ -299,8 +305,10 @@ If you find this work helpful, please consider citing us:
 ```
 @inproceedings{Sanyal2024pretraining,
   title  = {Pre-training Small Base LMs with Fewer Tokens},
-  author = {Sunny Sanyal and sujay sanghavi and Alex Dimakis},
-  year   = {2024}
+  author = {Sunny Sanyal and Sujay Sanghavi and Alexandros G. Dimakis},
+  year   = {2024},
+  url={https://arxiv.org/abs/2404.08634}
+  
 }
 ```
 &nbsp;
