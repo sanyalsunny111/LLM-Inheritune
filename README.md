@@ -50,7 +50,7 @@ Motivated by this observation, we propose \textbf{Inheritune}, a simple yet effe
 
 ## Main Result: Training GPT-2 xlarge (1.5B) with OpenWebText-9B tokens
 
- Model derived using Inheritune converges faster and matches the final validation loss of the full-sized model trained from scratch, despite being smaller. Training GPT-2 xlarge vanilla models from scratch and our variants with OpenWebText-9B for 100K steps.}
+ Model derived using Inheritune converges faster and matches the final validation loss of the full-sized model trained from scratch, despite being smaller. Training GPT-2 xlarge vanilla models from scratch and our variants with OpenWebText-9B for 100K steps.
 
 &nbsp;
 
