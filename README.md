@@ -1,4 +1,4 @@
-# Pre-training Small Base LMs with Fewer Tokens
+# Inheritune: Training Smaller Yet More Attentive Language Models
 
 <p align="center" width="50%">
       <img src="images/Inheritune_llama.jpeg" style="width: 50%; min-width: 100px; display: block; margin: auto;">
@@ -43,7 +43,7 @@ Motivated by this observation, we propose Inheritune, a simple yet effective tra
 </p>
 
 <p align="center" width="30%">
-      A closer look at the same GPT-2 large model reveals that the dominant mass proportion of several attention matrices is concentrated in a single column, particularly in deeper layers.
+      A closer look at the same GPT-2 large model reveals that the dominant mass proportion of several attention matrices are concentrated in a single column, particularly in deeper layers.
 
 </p>
 
@@ -260,8 +260,8 @@ If you find this work helpful, please consider citing us:
 
 ```
 @inproceedings{Sanyal2024pretraining,
-  title  = {Pre-training Small Base LMs with Fewer Tokens},
-  author = {Sunny Sanyal and Sujay Sanghavi and Alexandros G. Dimakis},
+  title  = {Inheritune: Training Smaller Yet More Attentive Language Models},
+  author = {Sunny Sanyal, Ravid Shwartz-Ziv, Alexandros G. Dimakis and Sujay Sanghavi},
   year   = {2024},
   url={https://arxiv.org/abs/2404.08634}
   
