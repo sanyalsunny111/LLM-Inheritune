@@ -4,24 +4,109 @@
       <img src="images/Inheritune_llama.jpeg" style="width: 50%; min-width: 100px; display: block; margin: auto;">
 </p>
 
-[Paper](https://arxiv.org/abs/2404.08634) | [Tweet](https://x.com/SunnySanyal9/status/1779700347335741622) | [Podcast](https://open.spotify.com/episode/4DvCmbTEH35D8UvxrdNPv6) | [Media](https://www.marktechpost.com/2024/04/21/inheritune-by-ut-austin-assists-efficient-language-model-training-leveraging-inheritance-and-reduced-data-for-comparable-performance/)
+[//]: # ([Paper]&#40;https://arxiv.org/abs/2404.08634&#41; )
+
+[//]: # (| [Tweet]&#40;https://x.com/SunnySanyal9/status/1779700347335741622&#41; | [Podcast]&#40;https://open.spotify.com/episode/4DvCmbTEH35D8UvxrdNPv6&#41; | [Media]&#40;https://www.marktechpost.com/2024/04/21/inheritune-by-ut-austin-assists-efficient-language-model-training-leveraging-inheritance-and-reduced-data-for-comparable-performance/&#41;)
 
 
 
-[//]: # (⚠️ **Warning**)
+⚠️ **Warning**
 
 [//]: # ()
-[//]: # (This repository is still under development and may still contain various bugs.)
+This repository is still under development and may still contain various bugs.
 
 [//]: # (---)
-This is the official repository for the paper [Pre-training Small Base LMs with Fewer Tokens](https://arxiv.org/abs/2404.08634). 
+This is the official repository for the paper [Inheritune: Training Smaller Yet More Attentive Language Models](https://arxiv.org/abs/2404.08634). 
 
 ## Abstract
-We study the effectiveness of a simple approach to develop a small base language model (LM) starting from an existing large base LM: first inherit a few transformer blocks from the larger LM, and then continually train this smaller model on a very small subset (0.1%) of the raw pre-training data of the larger model. We call our simple recipe Inheritune and first demonstrate it for building a small base LM with 1.5B parameters using 1B tokens (and a starting larger LM of 3B parameters); we do this using a single A6000 GPU for less than half a day. Across 9 diverse evaluation datasets as well as the MMLU benchmark, the resulting model compares favorably to publicly available similar sized base models, some of which have been trained using 50-1000 times more tokens. 
+Large Language Models (LLMs) have achieved remarkable performance across various natural language processing tasks, primarily due to the transformer architecture and its self-attention mechanism. However, we observe that in standard decoder-style LLMs, attention matrices degenerate to single-column for deeper layers. Layers in this state are unable to learn anything meaningful and mostly redundant; we refer to these as \emph{lazy layers}. The goal of this paper is to train smaller models by eliminating this structural inefficiency without compromising performance.
 
-We also investigate Inheritune, a slightly different setting where we train small LMs utilizing larger LMs and their full pre-training dataset. Here we show that smaller LMs trained utilizing some of the layers of GPT2-medium (355M) and GPT-2-large (770M) can effectively match the validation loss of their bigger counterparts when trained from scratch for the same number of training steps on OpenWebText dataset with 9B tokens. We analyze Inheritune with extensive experiments and demonstrate it efficacy on diverse settings.
+Motivated by this observation, we propose \textbf{Inheritune}, a simple yet effective training recipe for developing smaller, high-performing language models. Smaller models trained with \method{} inherit early transformer layers from a larger pre-trained model, then retrain and progressively expand until they match or exceed the performance of the larger model. We demonstrate that \method{} enables the training of various sizes of GPT-2 models on datasets like OpenWebText-9B and FineWeb\_Edu. Models trained with \method{}, despite having significantly fewer layers, match or even surpass the performance of their larger counterparts. For instance, our 16-layer GPT-2 medium variant achieves comparable performance to the standard 24-layer GPT-2 medium model.
 
-## Train 1.5B base language model using 1B tokens with 1 GPU for half a day
+## Attention Degeneration in Standard Decoder style-LLMs
+
+<div align="center">
+    <!-- First row of images -->
+    <div style="display: flex; justify-content: center;">
+        <figure style="margin: 10px;">
+            <img src="images/med_rank_analysis.png" width="250"/> <br><br>
+            <figcaption>(a)Rank analysis of vanilla GPT-2 Medium</figcaption>
+        </figure>
+        <figure style="margin: 10px;">
+            <img src="images/mediumfull_mass_analysis.png" width="250"/> <br><br>
+            <figcaption>(b)Matrix mass analysis of vanilla GPT-2 Medium</figcaption>
+        </figure>
+        <figure style="margin: 10px;">
+            <img src="images/medium_later_lyrs.png" width="250"/> <br><br>
+            <figcaption>(c)Model initialization with later layers</figcaption>
+        </figure>
+    </div>
+    <!-- Second row of images -->
+    <div style="display: flex; justify-content: center;">
+        <figure style="margin: 10px;">
+            <img src="images/large_rank_analysis.png" width="250"/> <br><br>
+            <figcaption>(d)Rank analysis of vanilla GPT-2 Large</figcaption>
+        </figure>
+        <figure style="margin: 10px;">
+            <img src="images/largefull_mass_analysis.png" width="250"/> <br><br>
+            <figcaption>(e)Matrix mass analysis of vanilla GPT-2 Large</figcaption>
+        </figure>
+        <figure style="margin: 10px;">
+            <img src="images/large_later_lyrs.png" width="250"/> <br><br>
+            <figcaption>(f)Model initialization with later layers</figcaption>
+        </figure>
+    </div>
+</div>
+
+[//]: # (### Summary)
+**Attention matrices of many deeper layers often degenerate to single-column matrices in regular decoder-style LLMs. Layers with fully degenerate attention fail to learn meaningful representations.**
+
+We computed a single attention matrix with 100 tokens from the OpenWebText validation set with 4M tokens. Next, we performed 100 runs and plotted the mean and standard deviation of the max rank and mass as a function of layers for our rank and mass analysis.
+
+- **Figures (a) and (d)**: An analysis of a 24-layer GPT-2 medium and a 36-layer GPT-2 large shows the max rank of the attention matrices across all layers.
+- **Figures (b) and (e)**: A closer look at the same GPT-2 models reveals that the dominant mass proportion of several attention matrices is concentrated in a single column, particularly in deeper layers.
+- **Figures (c) and (f)**: When initializing 12-layer and 18-layer variants of the vanilla GPT-2 medium and GPT-2 large models with deeper layers ("Lazy layers") exhibiting degenerated attention, their performance is comparable to models with random initialization. However, initializing models with early layers leads to significantly better generalization and convergence.
+
+
+## Main Result: Training GPT-2 xlarge (1.5B) with OpenWebText-9B tokens
+
+ Model derived using Inheritune converges faster and matches the final validation loss of the full-sized model trained from scratch, despite being smaller. Training GPT-2 xlarge vanilla models from scratch and our variants with OpenWebText-9B for 100K steps.}
+
+&nbsp;
+
+<p align="center" width="30%">
+      <img src="images/xlarge.png" style="width: 80%; min-width: 100px; display: block; margin: auto;">
+</p>
+
+## Additional Result: Training GPT-2 large* (680M) with Fineweb_edu
+
+Models derived using Inheritune converge faster and match the final validation loss of the full-sized model despite using fewer layers.
+
+<p align="center" width="30%">
+      <img src="images/fineweb_large.png" style="width: 80%; min-width: 100px; display: block; margin: auto;">
+</p>
+
+## Downstream Performance of Models Trained with Fineweb_edu
+
+| Models             | Recipe     | Layers | ARCE (acc) | PIQA (acc) | SciQ (acc) | Hellaswag (acc norm) | Lambada (acc) | **Average** |
+|--------------------|------------|--------|------------|------------|------------|----------------------|---------------|------------|
+| **GPT-2 Medium**   |            |        |            |            |            |                      |               |            |
+| &nbsp;&nbsp;       | rand init  | 24     | 51.05      | 61.81      | 74.8       | 30.79                | 20.28         | 47.74      |
+| &nbsp;&nbsp;       | rand init  | 16     | 49.92      | 61.92      | 73.3       | 29.56                | 19.54         | 46.84      |
+| &nbsp;&nbsp;       | **Ours**   | 16     | **51.26**  | **61.81**  | **73.8**   | **30.55**            | **23**        | **48.08**  |
+| **GPT-2 Large**<sup>†</sup> |   |        |            |            |            |                      |               |            |
+| &nbsp;&nbsp;       | rand init  | 32     | 52.48      | 64.58      | 75.3       | 32.65                | 22.2          | 49.44      |
+| &nbsp;&nbsp;       | rand init  | 16     | 50.34      | 63.11      | 75         | 30.86                | 21.56         | 48.17      |
+| &nbsp;&nbsp;       | **Ours**   | 16     | **52.9**   | **63.55**  | **76.1**   | **32.14**            | **24.06**     | **49.75**  |
+
+
+**Models trained with Inheritune outperform both their larger and same-size counterparts trained from scratch on average zero-shot downstream performance.**
+
+For evaluation, we use accuracy (acc) and normalized accuracy (acc norm) metrics following the Open LLM leaderboard. All models are trained with `FineWeb_edu`.
+
+## Additional Experiments in Low Data Regime
+
+### Train 1.5B base language model using 1B tokens with 1 GPU for half a day
 
 Performance of our 1.5B base LM derived using 1B data with Inheritune on an average of 9 different datasets (left) and MMLU benchmark (right) that evaluates commonsense, truthfulness, natural language inference and language understanding. We compare our model's performance with reference model-OpenLLamA-3B (2x size), other small base LMs of size 1B-2B parameters such as MPT-1.3B, OPT-1.3B, Pythia-1.4B (pre-trained from scratch) and  ShearLLaMA-1.5B (pruned and continually trained using existing large base LM).
 
@@ -182,115 +267,6 @@ Below is the comparison of our target model with reference models and other base
 
 &nbsp;
 
-## Exploratory Analysis with GPT2-large(770M) and GPT2-medium(355M)
-
-&nbsp;
-
-Below is the pre-training and downstream performance of GPT-2 Medium and Large models, evaluated using validation loss, Wikitext, and Lambada OpenAI downstream tasks. Smaller models derived using our method perform comparably to their full-sized counterparts. Models initialized with our method show better performance than those with random initialization.
-
-<table>
-<thead>
-<tr>
-<th rowspan="2">Models</th>
-<th rowspan="2">Layers</th>
-<th rowspan="2">Initialization</th>
-<th rowspan="2">Steps</th>
-<th rowspan="2">Pre-train Val Loss (↓)</th>
-<th colspan="2">Downstream (0-shot)</th>
-</tr>
-<tr>
-<th>Wikitext (↓)</th>
-<th>Lambada</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td rowspan="4">GPT-2 Large</td>
-<td>36</td>
-<td>rand init</td>
-<td>100K</td>
-<td>2.85</td>
-<td>34.84</td>
-<td>34.14</td>
-</tr>
-<tr>
-<td>18</td>
-<td>rand init</td>
-<td>100K</td>
-<td>2.97</td>
-<td>37.63</td>
-<td>30.97</td>
-</tr>
-<tr>
-<td>18</td>
-<td>rand init</td>
-<td>200K</td>
-<td>2.84</td>
-<td>--</td>
-<td>--</td>
-</tr>
-<tr>
-<td>18</td>
-<td>Ours</td>
-<td>100K</td>
-<td><strong>2.80</strong></td>
-<td>35.38</td>
-<td>34.64</td>
-</tr>
-<tr>
-<td rowspan="5">GPT-2 Medium</td>
-<td>24</td>
-<td>rand init</td>
-<td>100K</td>
-<td>2.81</td>
-<td>31.93</td>
-<td>36.54</td>
-</tr>
-<tr>
-<td>16</td>
-<td>rand init</td>
-<td>100K</td>
-<td>2.86</td>
-<td>33.67</td>
-<td>34.60</td>
-</tr>
-<tr>
-<td>16</td>
-<td>rand init</td>
-<td>200K</td>
-<td>2.83</td>
-<td>--</td>
-<td>--</td>
-</tr>
-<tr>
-<td>12</td>
-<td>Ours</td>
-<td>100K</td>
-<td>2.87</td>
-<td>--</td>
-<td>--</td>
-</tr>
-<tr>
-<td>14</td>
-<td>Ours</td>
-<td>100K</td>
-<td>2.84</td>
-<td>--</td>
-<td>--</td>
-</tr>
-<tr>
-<td><strong>Final Model →</strong></td>
-<td>16</td>
-<td>Ours</td>
-<td>100K</td>
-<td><strong>2.81</strong></td>
-<td>32.04</td>
-<td>35.96</td>
-</tr>
-</tbody>
-</table>
-
-Note: The models marked with 'rand init' are randomly initialized. The row labeled 'Final Model →' indicates the end results after 3 rounds of our method on a GPT-2 medium model to achieve benchmark val loss.
 
 ## News
 
