@@ -25,38 +25,103 @@ Motivated by this observation, we propose \textbf{Inheritune}, a simple yet effe
 
 ## Attention Degeneration in Standard Decoder style-LLMs
 
+[//]: # (<div align="center">)
+
+[//]: # (    <!-- First row of images -->)
+
+[//]: # (    <div style="display: flex; justify-content: center;">)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/med_rank_analysis.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;a&#41;Rank analysis of vanilla GPT-2 Medium</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/mediumfull_mass_analysis.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;b&#41;Matrix mass analysis of vanilla GPT-2 Medium</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/medium_later_lyrs.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;c&#41;Model initialization with later layers</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (    </div>)
+
+[//]: # (    <!-- Second row of images -->)
+
+[//]: # (    <div style="display: flex; justify-content: center;">)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/large_rank_analysis.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;d&#41;Rank analysis of vanilla GPT-2 Large</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/largefull_mass_analysis.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;e&#41;Matrix mass analysis of vanilla GPT-2 Large</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (        <figure style="margin: 10px;">)
+
+[//]: # (            <img src="images/large_later_lyrs.png" width="250"/> <br><br>)
+
+[//]: # (            <figcaption>&#40;f&#41;Model initialization with later layers</figcaption>)
+
+[//]: # (        </figure>)
+
+[//]: # (    </div>)
+
+[//]: # (</div>)
+
 <div align="center">
     <!-- First row of images -->
-    <div style="display: flex; justify-content: center;">
-        <figure style="margin: 10px;">
-            <img src="images/med_rank_analysis.png" width="250"/> <br><br>
-            <figcaption>(a)Rank analysis of vanilla GPT-2 Medium</figcaption>
+    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/med_rank_analysis.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(a) Rank analysis of vanilla GPT-2 Medium</figcaption>
         </figure>
-        <figure style="margin: 10px;">
-            <img src="images/mediumfull_mass_analysis.png" width="250"/> <br><br>
-            <figcaption>(b)Matrix mass analysis of vanilla GPT-2 Medium</figcaption>
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/mediumfull_mass_analysis.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(b) Matrix mass analysis of vanilla GPT-2 Medium</figcaption>
         </figure>
-        <figure style="margin: 10px;">
-            <img src="images/medium_later_lyrs.png" width="250"/> <br><br>
-            <figcaption>(c)Model initialization with later layers</figcaption>
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/medium_later_lyrs.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(c) Model initialization with later layers</figcaption>
         </figure>
     </div>
     <!-- Second row of images -->
-    <div style="display: flex; justify-content: center;">
-        <figure style="margin: 10px;">
-            <img src="images/large_rank_analysis.png" width="250"/> <br><br>
-            <figcaption>(d)Rank analysis of vanilla GPT-2 Large</figcaption>
+    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/large_rank_analysis.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(d) Rank analysis of vanilla GPT-2 Large</figcaption>
         </figure>
-        <figure style="margin: 10px;">
-            <img src="images/largefull_mass_analysis.png" width="250"/> <br><br>
-            <figcaption>(e)Matrix mass analysis of vanilla GPT-2 Large</figcaption>
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/largefull_mass_analysis.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(e) Matrix mass analysis of vanilla GPT-2 Large</figcaption>
         </figure>
-        <figure style="margin: 10px;">
-            <img src="images/large_later_lyrs.png" width="250"/> <br><br>
-            <figcaption>(f)Model initialization with later layers</figcaption>
+        <figure style="margin: 10px; text-align: center;">
+            <img src="images/large_later_lyrs.png" width="250"/>
+            <figcaption style="margin-top: 10px;">(f) Model initialization with later layers</figcaption>
         </figure>
     </div>
 </div>
+
 
 [//]: # (### Summary)
 **Attention matrices of many deeper layers often degenerate to single-column matrices in regular decoder-style LLMs. Layers with fully degenerate attention fail to learn meaningful representations.**
