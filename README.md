@@ -25,112 +25,27 @@ Motivated by this observation, we propose \textbf{Inheritune}, a simple yet effe
 
 ## Attention Degeneration in Standard Decoder style-LLMs
 
-[//]: # (<div align="center">)
+<br><br>
 
-[//]: # (    <!-- First row of images -->)
+<p align="center" width="30%">
+      <img src="images/large_rank_analysis.png" style="width: 80%; min-width: 100px; display: block; margin: auto;">
+</p>
 
-[//]: # (    <div style="display: flex; justify-content: center;">)
+<p align="center" width="30%">
+      An analysis of a 36-layer GPT-2 large shows the max rank of the attention matrices across all layers.
+</p>
 
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/med_rank_analysis.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;a&#41;Rank analysis of vanilla GPT-2 Medium</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/mediumfull_mass_analysis.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;b&#41;Matrix mass analysis of vanilla GPT-2 Medium</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/medium_later_lyrs.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;c&#41;Model initialization with later layers</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (    </div>)
-
-[//]: # (    <!-- Second row of images -->)
-
-[//]: # (    <div style="display: flex; justify-content: center;">)
-
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/large_rank_analysis.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;d&#41;Rank analysis of vanilla GPT-2 Large</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/largefull_mass_analysis.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;e&#41;Matrix mass analysis of vanilla GPT-2 Large</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (        <figure style="margin: 10px;">)
-
-[//]: # (            <img src="images/large_later_lyrs.png" width="250"/> <br><br>)
-
-[//]: # (            <figcaption>&#40;f&#41;Model initialization with later layers</figcaption>)
-
-[//]: # (        </figure>)
-
-[//]: # (    </div>)
-
-[//]: # (</div>)
-
-<div align="center">
-    <!-- First row of images -->
-    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/med_rank_analysis.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(a) Rank analysis of vanilla GPT-2 Medium</figcaption>
-        </figure>
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/mediumfull_mass_analysis.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(b) Matrix mass analysis of vanilla GPT-2 Medium</figcaption>
-        </figure>
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/medium_later_lyrs.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(c) Model initialization with later layers</figcaption>
-        </figure>
-    </div>
-    <!-- Second row of images -->
-    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/large_rank_analysis.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(d) Rank analysis of vanilla GPT-2 Large</figcaption>
-        </figure>
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/largefull_mass_analysis.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(e) Matrix mass analysis of vanilla GPT-2 Large</figcaption>
-        </figure>
-        <figure style="margin: 10px; text-align: center;">
-            <img src="images/large_later_lyrs.png" width="250"/>
-            <figcaption style="margin-top: 10px;">(f) Model initialization with later layers</figcaption>
-        </figure>
-    </div>
-</div>
+<br><br>
 
 
-[//]: # (### Summary)
-**Attention matrices of many deeper layers often degenerate to single-column matrices in regular decoder-style LLMs. Layers with fully degenerate attention fail to learn meaningful representations.**
+<p align="center" width="30%">
+      <img src="images/largefull_mass_analysis.png" style="width: 80%; min-width: 100px; display: block; margin: auto;">
+</p>
 
-We computed a single attention matrix with 100 tokens from the OpenWebText validation set with 4M tokens. Next, we performed 100 runs and plotted the mean and standard deviation of the max rank and mass as a function of layers for our rank and mass analysis.
+<p align="center" width="30%">
+      A closer look at the same GPT-2 large model reveals that the dominant mass proportion of several attention matrices is concentrated in a single column, particularly in deeper layers.
 
-- **Figures (a) and (d)**: An analysis of a 24-layer GPT-2 medium and a 36-layer GPT-2 large shows the max rank of the attention matrices across all layers.
-- **Figures (b) and (e)**: A closer look at the same GPT-2 models reveals that the dominant mass proportion of several attention matrices is concentrated in a single column, particularly in deeper layers.
-- **Figures (c) and (f)**: When initializing 12-layer and 18-layer variants of the vanilla GPT-2 medium and GPT-2 large models with deeper layers ("Lazy layers") exhibiting degenerated attention, their performance is comparable to models with random initialization. However, initializing models with early layers leads to significantly better generalization and convergence.
+</p>
 
 
 ## Main Result: Training GPT-2 xlarge (1.5B) with OpenWebText-9B tokens
