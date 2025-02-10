@@ -269,6 +269,10 @@ If you find this work helpful, please consider citing us:
 ```
 &nbsp;
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=sanyalsunny111/LLM-Inheritune&type=Date)](https://star-history.com/#sanyalsunny111/LLM-Inheritune&Date)
+
 ## Acknowledgement
 The training code for small language model 1B-2B is mainly adapted from [litgpt](https://github.com/Lightning-AI/litgpt/blob/main/README.md). The code for GPT2 experiments are mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/). \
 The llama image is created using DALLE.
