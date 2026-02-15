@@ -25,17 +25,6 @@ torchrun --standalone --nproc_per_node=3 train_inheritune.py
 - tiktoken
 - wandb
 
-## Cite
-If you find this work helpful, please consider citing us:
-
-```
-@inproceedings{Sanyal2024pretraining,
-  title  = {Pre-training Small Base LMs with Fewer Tokens},
-  author = {Sunny Sanyal and sujay sanghavi and Alex Dimakis},
-  year   = {2024},
-  url    = {https://openreview.net/forum?id=SmNlrStwHW}
-}
-```
 
 ## Acknowledgement
 The training code is mainly adapted from [Sophia](https://github.com/Liuhong99/Sophia/) and [nanoGPT](https://github.com/karpathy/nanoGPT/).
