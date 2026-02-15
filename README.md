@@ -63,7 +63,7 @@ This paper has been published as a journal version in **TMLR** and was reviewed 
 
 $$
 \text{Attention}(Q, K, V)
-= \underbrace{\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)}_{\textbf{Attention matrix: }A(X)}\,V
+= \underbrace{\text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)}_{\textbf{Attention matrix: }A(X)} V
 \tag{1}\label{eq:attention}
 $$
 
@@ -72,7 +72,7 @@ Refer demo [notebook](attention-collapse-demo/attention_demos.ipynb).
 
 
 <p align="center">
-  <img src="images/rank_evolution.gif" alt="Rank Analysis" width="65%">
+  <img src="images/rank_evolution.gif" alt="Rank Analysis" width="85%">
   <br>
   <em><strong>Figure. 1:</strong> Toy example of rank collapse in pure self-attention network.</em>
 </p>
@@ -112,7 +112,7 @@ Inheritune follows a simple three-step process:
 This approach leverages the knowledge already captured in early layers while eliminating lazy deeper layers.
 
 <p align="center">
-  <img src="images/inheritune_algo.png" alt="Rank Analysis" width="55%">
+  <img src="images/inheritune_algo.png" alt="Rank Analysis" width="75%">
   <br>
   <em><strong>Figure. 4:</strong> Overview of the Inheritune training recipe 
 using a 24-Layer GPT-2 Medium model example. </em>
