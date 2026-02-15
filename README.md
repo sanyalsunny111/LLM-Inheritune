@@ -61,12 +61,6 @@ This paper has been published as a journal version in **TMLR** and was reviewed 
 
 ## The Problem: Attention Collapse
 
-$$
-\text{Attention}(Q, K, V)
-= \underbrace{\text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)}_{\textbf{Attention matrix: }A(X)} V
-\tag{1}\label{eq:attention}
-$$
-
 The rank of many attention matrices collapses to near rank-1 during training. 
 Refer demo [notebook](attention-collapse-demo/attention_demos.ipynb).
 

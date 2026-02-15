@@ -1,4 +1,4 @@
-> ⚠️ **Note**: Lit-GPT has been refractored heavily some parts of this code may not as expected.
+> ⚠️ **Note**: Lit-GPT has been refractored heavily some parts of this code may not work as expected.
 
 ## Setup
 
