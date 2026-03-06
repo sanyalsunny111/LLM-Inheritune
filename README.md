@@ -169,17 +169,16 @@ a 16-layer model trained with Inheritune (Ours).</em>
 
 ## Citation
 If you find this work helpful, please consider citing us:
-
-Note: TMLR has not yet provided the final bibtex I will update this shortly.
 ```
 @article{
-sanyal2025attentioncollpase,
+sanyal2026when,
 title={When Attention Collapses: How Degenerate Layers in {LLM}s Enable Smaller, Stronger Models},
-author={Sunny Sanyal and Ravid Shwartz-Ziv and Alexandros G. Dimakis and Sujay Sanghavi},
+author={Sunny Sanyal and Ravid Shwartz-Ziv and Alex Dimakis and sujay sanghavi},
 journal={Transactions on Machine Learning Research},
-issn={xxxx},
-year={2025},
-url={https://openreview.net/forum?id=2zQn0bUoPf}
+issn={2835-8856},
+year={2026},
+url={https://openreview.net/forum?id=2zQn0bUoPf},
+note={}
 }
 ```
 &nbsp;
